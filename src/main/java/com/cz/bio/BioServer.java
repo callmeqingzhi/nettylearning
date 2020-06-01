@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 public class BioServer {
 
-
+    // 启动服务，客户端使用telnet，连接成功后，Ctrl+]进入发送模式，使用send msg进行发送
     public static void main(String[] args) throws Exception {
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
 
