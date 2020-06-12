@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webSocket</title>
+</head>
+<body>
+<script>
+    var socket;
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://localhost:7000/hello");
+        // 相当于channelRead0，event 为收到来自服务端的消息
+        socket.onmessage = function (event) {
+            var resp = document.getElementById("responseText");
+            resp.value = resp.value + "\n" + event.data;
+        }
+
+        // 连接开启
+        socket.onopen = function (event) {
+            var resp = document.getElementById("responseText");
+            resp.value = "连接开启...";
+
+        }
+
+        // 连接关闭
+        socket.onclose = function (event) {
+            var resp = document.getElementById("responseText");
+            resp.value = resp.value + "\n" + "连接关闭...";
+
+        }
+        // 发送消息到服务器
+        function send(msg) {
+            if (!window.socket){
+                return;
+            }
+            if (socket.readyState == WebSocket.OPEN){
+
+                socket.send(msg);
+            }else {
+                alert("连接未开启")
+            }
+        }
+    } else {
+        alert("not support webSocket!")
+    }
+
+</script>
+
+<form onsubmit="return false">
+    <textarea name="message" style="height: 300px;width: 300px"></textarea>
+    <input type="button" value="send msg" onclick="send(this.form.message.value)">
+    <textarea id="responseText" style="height: 300px;width: 300px"></textarea>
+    <input type="button" value="clear" onclick="document.getElementById('responseText').value=''">
+</form>
+
+</body>
+</html>
