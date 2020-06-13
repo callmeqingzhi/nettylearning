@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_outer_classname = "StudentPOJO";
+option java_package = "com.cz.netty.codec";
+
+message Student{
+  uint32 id = 1;
+  string name = 2;
+
+}
